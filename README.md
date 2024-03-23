@@ -3,6 +3,6 @@ Implementation of [Learning Gradients of Convex Functions with Monotone Gradient
 
 ## Installation
 - Clone [CP-Flow](https://github.com/CW-Huang/CP-Flow) to be able to run the corresponding experiment in the notebook 
-- Move `models.py` and `train_ot_coupling` into the main folder of `CP-Flow'
+- Move `models.py` and `train_ot_coupling.py` into the main folder of `CP-Flow'
 - You can now run the the corresponding cell in the notebook (part 3.c)
 
