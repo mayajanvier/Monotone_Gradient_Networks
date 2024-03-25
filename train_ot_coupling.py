@@ -53,7 +53,8 @@ num_epochs = 2
 print_every = 100
 
 results = list()
-for flow_type in ['linear_iaf', 'cpflow','cmgn','mmgn']:
+flows = ['linear_iaf', 'cpflow','cmgn','mmgn']
+for flow_type in flows:
 
     if flow_type == 'cpflow':
         icnn = ICNN3(dimx, k, depth, symm_act_first=False, softplus_type='gaussian_softplus', zero_softplus=True)
@@ -115,7 +116,7 @@ for flow_type in ['linear_iaf', 'cpflow','cmgn','mmgn']:
             if cuda:
                 x_test = x_test.cuda()
             z = flow.flows[0](x_test)
-            l2 += torch.sum((x_test - z)**2).item()
+            l2 += torch.sqrt(torch.sum((x_test - z)**2)).item() # for comparison with our setup 
             count += x_test.size(0)
         return l2 / count
 
@@ -189,15 +190,15 @@ for flow_type in ['linear_iaf', 'cpflow','cmgn','mmgn']:
         savefig(f'OT_learned_gaussian_{flow_type}.png')
 
         plt.figure(figsize=(5, 5))
-        num = 200
+        num = 5000 # for comparison with MGN methods 
         # noinspection PyUnresolvedReferences
-        colors = matplotlib.cm.rainbow(np.linspace(0, 1, num))
+        colors = matplotlib.cm.viridis(np.linspace(0, 1, num))
         ind = np.argsort(test_loader.dataset.data[:num, 0])
         x = test_loader.dataset.data[:num, 0][ind]
         y = test_loader.dataset.data[:num, 1][ind]
         plt.scatter(x, y, color=colors)
-        plt.xlim(-4, 4)
-        plt.ylim(-4, 4)
+        plt.xlim(-6,6)
+        plt.ylim(-8,8)
         plt.grid()
         plt.tight_layout()
         savefig(f'OT_x_{flow_type}.png')
@@ -208,10 +209,31 @@ for flow_type in ['linear_iaf', 'cpflow','cmgn','mmgn']:
         x = out[:, 0]
         y = out[:, 1]
         plt.scatter(x, y, color=colors)
-        plt.xlim(-4, 4)
-        plt.ylim(-4, 4)
+        plt.xlim(-6,6)
+        plt.ylim(-8,8)
         plt.grid()
         plt.tight_layout()
         savefig(f'OT_z_{flow_type}.png')
 
+
+# Create figures for losses and estimates
+fig_losses = plt.figure()
+fig_estimates = plt.figure()
+
+for k in range(len(results)):
+    # plot losses
+    plt.figure(fig_losses.number)  # Switch to the losses figure
+    plt.plot(results[k][0], label=flows[k])
+    plt.legend()
+    plt.title('Losses')
+    savefig('Losses.png')  # Save the current state of the losses figure
+
+    # plot estimates
+    plt.figure(fig_estimates.number)  # Switch to the estimates figure
+    plt.plot(results[k][1], label=flows[k])
+    plt.legend()
+    plt.title('Estimates')
+    savefig('Estimates.png')  # Save the current state of the estimates figure
+
+plt.show()  # Show the final state of the figures
 
