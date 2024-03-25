@@ -21,6 +21,6 @@ The main code is in the `experiments.ipynb` notebook. You will be able to reprod
 
 ## Color adaptation experiment
 If you want to run on more images, you can follow these steps: 
-- Download the [Dark Zurick dataset](https://www.trace.ethz.ch/publications/2019/GCMA_UIoU/) validation set.
+- Download the [Dark Zurich dataset](https://www.trace.ethz.ch/publications/2019/GCMA_UIoU/) validation set.
 - Get the folder `/Dark_Zurich_val_anon/rgb_anon/val_ref/day/GOPR0356_ref` and add new pictures to the dark_zurich folder !
 
