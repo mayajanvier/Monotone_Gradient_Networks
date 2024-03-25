@@ -1,5 +1,5 @@
 # Monotone_Gradient_Networks
-Maya Janvier and Margot Boyer  
+[Maya Janvier](https://github.com/mayajanvier) and [Margot Boyer](https://github.com/MargotBoyer)  
 
 Implementation of [Learning Gradients of Convex Functions with Monotone Gradient Networks (Chaudhari et al. (2023))](https://arxiv.org/abs/2301.10862)
 
